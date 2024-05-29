@@ -5,6 +5,7 @@ import com.hust.itss.repository.SubjectRepository;
 import com.hust.itss.service.SubjectService;
 import com.hust.itss.service.dto.SubjectDTO;
 import com.hust.itss.service.mapper.SubjectMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +81,19 @@ public class SubjectServiceImpl implements SubjectService {
     public void delete(Long id) {
         log.debug("Request to delete Subject : {}", id);
         subjectRepository.deleteById(id);
+    }
+
+    /**
+     * Search for the subject corresponding to the query.
+     *
+     * @param query    the query of the search.
+     * @return the list of entities.
+     */
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SubjectDTO> search(String query) {
+        log.debug("Request to search for a page of Subjects for query {}", query);
+        return subjectRepository.findByNameOrCodeIgnoreCase(query).stream().map(subjectMapper::toDto).toList();
     }
 }
