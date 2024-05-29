@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20240529123652"
+  },
+  "applications": ["TaiLieuHustItss"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldName": "anonymousId",
+      "fieldType": "UUID"
+    }
+  ],
+  "name": "Comments",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

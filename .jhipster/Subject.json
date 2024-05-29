@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20240529123649"
+  },
+  "applications": ["TaiLieuHustItss"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Subject",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "major",
+      "relationshipName": "major",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "document",
+      "relationshipName": "documents",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

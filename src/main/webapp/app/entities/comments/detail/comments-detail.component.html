@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (comments()) {
+      <div>
+        <h2 data-cy="commentsDetailsHeading"><span>Comments</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ comments()!.id }}</span>
+          </dd>
+          <dt><span>Created At</span></dt>
+          <dd>
+            <span>{{ comments()!.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Updated At</span></dt>
+          <dd>
+            <span>{{ comments()!.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span>Anonymous Id</span></dt>
+          <dd>
+            <span>{{ comments()!.anonymousId }}</span>
+          </dd>
+          <dt><span>Document</span></dt>
+          <dd>
+            @if (comments()!.document) {
+              <div>
+                <a [routerLink]="['/document', comments()!.document?.id, 'view']">{{ comments()!.document?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/comments', comments()!.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

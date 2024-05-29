@@ -1,0 +1,61 @@
+application {
+  config {
+    baseName TaiLieuHustItss
+    applicationType monolith
+    packageName com.hust.itss
+    authenticationType jwt
+    prodDatabaseType postgresql
+      databaseType sql
+
+  }
+  entities Major, Subject, Document, Url, Comments
+}
+
+entity Major {
+    id Long,
+    name String,
+}
+
+entity Subject {
+    id Long,
+    name String,
+    code String
+}
+
+entity Document {
+    id Long,
+    title String,
+}
+
+entity Url {
+    id Long,
+    driveUrl String,
+    type String
+}
+
+entity Comments {
+    id Long,
+    createdAt ZonedDateTime,
+    updatedAt ZonedDateTime,
+    anonymousId UUID,
+}
+
+relationship OneToOne {
+    Subject{major} to Major
+}
+
+relationship OneToMany {
+    Subject{documents} to Document
+}
+
+relationship OneToMany {
+    Document{urls} to Url
+}
+
+relationship OneToMany {
+    Document{comments} to Comments
+}
+
+dto * with mapstruct
+service * with serviceImpl
+paginate * with pagination

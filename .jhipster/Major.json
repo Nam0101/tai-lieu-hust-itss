@@ -1,0 +1,22 @@
+{
+  "annotations": {
+    "changelogDate": "20240529123648"
+  },
+  "applications": ["TaiLieuHustItss"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Major",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
