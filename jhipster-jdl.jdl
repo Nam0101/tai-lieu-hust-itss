@@ -39,7 +39,6 @@ entity Comments {
     updatedAt ZonedDateTime,
     anonymousId UUID,
 }
-
 relationship OneToMany {
     Subject{documents} to Document
 }

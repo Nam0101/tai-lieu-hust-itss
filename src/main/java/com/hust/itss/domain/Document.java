@@ -32,6 +32,9 @@ public class Document implements Serializable {
     @Column(name = "image_url")
     private String imgUrl;
 
+    @Column(name = "rating")
+    private Double rating;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "document")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
@@ -49,34 +52,14 @@ public class Document implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
     public Document id(Long id) {
         this.setId(id);
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
     public Document title(String title) {
         this.setTitle(title);
         return this;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Set<Url> getUrls() {
-        return this.urls;
     }
 
     public void setUrls(Set<Url> urls) {
@@ -104,10 +87,6 @@ public class Document implements Serializable {
         url.setDocument(null);
     }
 
-    public Set<Comments> getComments() {
-        return this.comments;
-    }
-
     public void setComments(Set<Comments> comments) {
         if (this.comments != null) {
             this.comments.forEach(i -> i.setDocument(null));
@@ -131,14 +110,6 @@ public class Document implements Serializable {
     public void removeComments(Comments comments) {
         this.comments.remove(comments);
         comments.setDocument(null);
-    }
-
-    public Subject getSubject() {
-        return this.subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 
     public Document subject(Subject subject) {
@@ -172,5 +143,55 @@ public class Document implements Serializable {
             "id=" + getId() +
             ", title='" + getTitle() + "'" +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getImgUrl() {
+        return this.imgUrl;
+    }
+
+    public Double getRating() {
+        return this.rating;
+    }
+
+    public Set<Url> getUrls() {
+        return this.urls;
+    }
+
+    public Set<Comments> getComments() {
+        return this.comments;
+    }
+
+    public Subject getSubject() {
+        return this.subject;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @JsonIgnoreProperties(value = { "documents", "majors" }, allowSetters = true)
+    @JsonIgnore
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }

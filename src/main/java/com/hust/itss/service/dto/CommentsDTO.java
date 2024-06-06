@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * A DTO for the {@link com.hust.itss.domain.Comments} entity.
@@ -22,46 +20,6 @@ public class CommentsDTO implements Serializable {
     private UUID anonymousId;
 
     private DocumentDTO document;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public UUID getAnonymousId() {
-        return anonymousId;
-    }
-
-    public void setAnonymousId(UUID anonymousId) {
-        this.anonymousId = anonymousId;
-    }
-
-    public DocumentDTO getDocument() {
-        return document;
-    }
-
-    public void setDocument(DocumentDTO document) {
-        this.document = document;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,5 +51,45 @@ public class CommentsDTO implements Serializable {
             ", anonymousId='" + getAnonymousId() + "'" +
             ", document=" + getDocument() +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public ZonedDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public UUID getAnonymousId() {
+        return this.anonymousId;
+    }
+
+    public DocumentDTO getDocument() {
+        return this.document;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setAnonymousId(UUID anonymousId) {
+        this.anonymousId = anonymousId;
+    }
+
+    public void setDocument(DocumentDTO document) {
+        this.document = document;
     }
 }

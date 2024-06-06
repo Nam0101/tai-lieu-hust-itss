@@ -17,38 +17,6 @@ public class UrlDTO implements Serializable {
 
     private DocumentDTO document;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDriveUrl() {
-        return driveUrl;
-    }
-
-    public void setDriveUrl(String driveUrl) {
-        this.driveUrl = driveUrl;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public DocumentDTO getDocument() {
-        return document;
-    }
-
-    public void setDocument(DocumentDTO document) {
-        this.document = document;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,5 +47,37 @@ public class UrlDTO implements Serializable {
             ", type='" + getType() + "'" +
             ", document=" + getDocument() +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getDriveUrl() {
+        return this.driveUrl;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public DocumentDTO getDocument() {
+        return this.document;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDriveUrl(String driveUrl) {
+        this.driveUrl = driveUrl;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDocument(DocumentDTO document) {
+        this.document = document;
     }
 }

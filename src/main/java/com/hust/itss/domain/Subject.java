@@ -45,21 +45,9 @@ public class Subject implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
     public Subject id(Long id) {
         this.setId(id);
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public Subject name(String name) {
@@ -67,25 +55,9 @@ public class Subject implements Serializable {
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return this.code;
-    }
-
     public Subject code(String code) {
         this.setCode(code);
         return this;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Set<Document> getDocuments() {
-        return this.documents;
     }
 
     public void setDocuments(Set<Document> documents) {
@@ -113,10 +85,6 @@ public class Subject implements Serializable {
         this.documents.remove(document);
         document.setSubject(null);
         return this;
-    }
-
-    public Set<Major> getMajors() {
-        return this.majors;
     }
 
     public void setMajors(Set<Major> majors) {
@@ -173,5 +141,37 @@ public class Subject implements Serializable {
             ", name='" + getName() + "'" +
             ", code='" + getCode() + "'" +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public Set<Document> getDocuments() {
+        return this.documents;
+    }
+
+    public Set<Major> getMajors() {
+        return this.majors;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

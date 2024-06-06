@@ -2,7 +2,8 @@ package com.hust.itss.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 import org.hibernate.annotations.Cache;
@@ -32,17 +33,9 @@ public class Authority implements Serializable, Persistable<String> {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public String getName() {
-        return this.name;
-    }
-
     public Authority name(String name) {
         this.setName(name);
         return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @PostLoad
@@ -62,9 +55,8 @@ public class Authority implements Serializable, Persistable<String> {
         return !this.isPersisted;
     }
 
-    public Authority setIsPersisted() {
+    public void setIsPersisted() {
         this.isPersisted = true;
-        return this;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -91,5 +83,13 @@ public class Authority implements Serializable, Persistable<String> {
         return "Authority{" +
             "name=" + getName() +
             "}";
+    }
+
+    public @NotNull @Size(max = 50) String getName() {
+        return this.name;
+    }
+
+    public void setName(@NotNull @Size(max = 50) String name) {
+        this.name = name;
     }
 }

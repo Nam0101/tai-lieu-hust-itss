@@ -35,21 +35,9 @@ public class Url implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
     public Url id(Long id) {
         this.setId(id);
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDriveUrl() {
-        return this.driveUrl;
     }
 
     public Url driveUrl(String driveUrl) {
@@ -57,29 +45,9 @@ public class Url implements Serializable {
         return this;
     }
 
-    public void setDriveUrl(String driveUrl) {
-        this.driveUrl = driveUrl;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
     public Url type(String type) {
         this.setType(type);
         return this;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Document getDocument() {
-        return this.document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
     }
 
     public Url document(Document document) {
@@ -114,5 +82,38 @@ public class Url implements Serializable {
             ", driveUrl='" + getDriveUrl() + "'" +
             ", type='" + getType() + "'" +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getDriveUrl() {
+        return this.driveUrl;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public Document getDocument() {
+        return this.document;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDriveUrl(String driveUrl) {
+        this.driveUrl = driveUrl;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @JsonIgnoreProperties(value = { "urls", "comments", "subject" }, allowSetters = true)
+    public void setDocument(Document document) {
+        this.document = document;
     }
 }

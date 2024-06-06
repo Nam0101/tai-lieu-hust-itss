@@ -42,38 +42,14 @@ public class Major implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
     public Major id(Long id) {
         this.setId(id);
         return this;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     public Major name(String name) {
         this.setName(name);
         return this;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Subject> getSubjects() {
-        return this.subjects;
-    }
-
-    public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
     }
 
     public Major subjects(Set<Subject> subjects) {
@@ -115,5 +91,31 @@ public class Major implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Set<Subject> getSubjects() {
+        return this.subjects;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @JsonIgnoreProperties(value = { "documents", "majors" }, allowSetters = true)
+    @JsonIgnore
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

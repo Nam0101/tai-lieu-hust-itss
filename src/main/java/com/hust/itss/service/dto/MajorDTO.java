@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import lombok.Getter;
-import lombok.Setter;
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class MajorDTO implements Serializable {
@@ -14,30 +12,6 @@ public class MajorDTO implements Serializable {
     private Long id;
 
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<SubjectDTO> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(Set<SubjectDTO> subjects) {
-        this.subjects = subjects;
-    }
 
     @JsonIgnore
     private Set<SubjectDTO> subjects = new HashSet<>();
@@ -71,5 +45,30 @@ public class MajorDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", subjects=" + getSubjects() +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Set<SubjectDTO> getSubjects() {
+        return this.subjects;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @JsonIgnore
+    public void setSubjects(Set<SubjectDTO> subjects) {
+        this.subjects = subjects;
     }
 }

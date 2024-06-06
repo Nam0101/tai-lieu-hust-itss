@@ -13,6 +13,7 @@ import org.mapstruct.*;
 public interface DocumentMapper extends EntityMapper<DocumentDTO, Document> {
     @Mapping(target = "subject", source = "subject", qualifiedByName = "subjectId")
     @Mapping(target = "imgUrl", source = "imgUrl")
+    @Mapping(target = "rating", source = "rating")
     DocumentDTO toDto(Document s);
 
     @Named("subjectId")

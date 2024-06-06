@@ -3,8 +3,6 @@ package com.hust.itss.service.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
 
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class DocumentDTO implements Serializable {
@@ -16,31 +14,9 @@ public class DocumentDTO implements Serializable {
     @JsonIgnore
     private SubjectDTO subject;
 
+    private Double rating;
+
     private String imgUrl;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public SubjectDTO getSubject() {
-        return subject;
-    }
-
-    public void setSubject(SubjectDTO subject) {
-        this.subject = subject;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -72,8 +48,41 @@ public class DocumentDTO implements Serializable {
             "}";
     }
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public SubjectDTO getSubject() {
+        return this.subject;
+    }
+
+    public Double getRating() {
+        return this.rating;
+    }
+
     public String getImgUrl() {
-        return imgUrl;
+        return this.imgUrl;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    @JsonIgnore
+    public void setSubject(SubjectDTO subject) {
+        this.subject = subject;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public void setImgUrl(String imgUrl) {

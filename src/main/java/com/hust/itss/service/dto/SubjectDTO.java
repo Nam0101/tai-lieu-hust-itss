@@ -21,38 +21,6 @@ public class SubjectDTO implements Serializable {
     @JsonIgnore
     private Set<MajorDTO> majors = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Set<MajorDTO> getMajors() {
-        return majors;
-    }
-
-    public void setMajors(Set<MajorDTO> majors) {
-        this.majors = majors;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -83,5 +51,38 @@ public class SubjectDTO implements Serializable {
             ", code='" + getCode() + "'" +
             ", majors=" + getMajors() +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public Set<MajorDTO> getMajors() {
+        return this.majors;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @JsonIgnore
+    public void setMajors(Set<MajorDTO> majors) {
+        this.majors = majors;
     }
 }

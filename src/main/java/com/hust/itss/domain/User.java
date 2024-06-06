@@ -10,9 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -93,111 +91,6 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    // Lowercase the login before saving it in database
-    public void setLogin(String login) {
-        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
-    }
-
-    public String getResetKey() {
-        return resetKey;
-    }
-
-    public void setResetKey(String resetKey) {
-        this.resetKey = resetKey;
-    }
-
-    public Instant getResetDate() {
-        return resetDate;
-    }
-
-    public void setResetDate(Instant resetDate) {
-        this.resetDate = resetDate;
-    }
-
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -228,5 +121,113 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public @NotNull @Pattern(regexp = Constants.LOGIN_REGEX) @Size(min = 1, max = 50) String getLogin() {
+        return this.login;
+    }
+
+    public @NotNull @Size(min = 60, max = 60) String getPassword() {
+        return this.password;
+    }
+
+    public @Size(max = 50) String getFirstName() {
+        return this.firstName;
+    }
+
+    public @Size(max = 50) String getLastName() {
+        return this.lastName;
+    }
+
+    public @Email @Size(min = 5, max = 254) String getEmail() {
+        return this.email;
+    }
+
+    public @NotNull boolean isActivated() {
+        return this.activated;
+    }
+
+    public @Size(min = 2, max = 10) String getLangKey() {
+        return this.langKey;
+    }
+
+    public @Size(max = 256) String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    public @Size(max = 20) String getActivationKey() {
+        return this.activationKey;
+    }
+
+    public @Size(max = 20) String getResetKey() {
+        return this.resetKey;
+    }
+
+    public Instant getResetDate() {
+        return this.resetDate;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return this.authorities;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLogin(@NotNull @Pattern(regexp = Constants.LOGIN_REGEX) @Size(min = 1, max = 50) String login) {
+        this.login = login;
+    }
+
+    @JsonIgnore
+    public void setPassword(@NotNull @Size(min = 60, max = 60) String password) {
+        this.password = password;
+    }
+
+    public void setLastName(@Size(max = 50) String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(@Email @Size(min = 5, max = 254) String email) {
+        this.email = email;
+    }
+
+    public void setActivated(@NotNull boolean activated) {
+        this.activated = activated;
+    }
+
+    public void setLangKey(@Size(min = 2, max = 10) String langKey) {
+        this.langKey = langKey;
+    }
+
+    public void setImageUrl(@Size(max = 256) String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @JsonIgnore
+    public void setActivationKey(@Size(max = 20) String activationKey) {
+        this.activationKey = activationKey;
+    }
+
+    @JsonIgnore
+    public void setResetKey(@Size(max = 20) String resetKey) {
+        this.resetKey = resetKey;
+    }
+
+    public void setResetDate(Instant resetDate) {
+        this.resetDate = resetDate;
+    }
+
+    @JsonIgnore
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setFirstName(@Size(max = 50) String firstName) {
+        this.firstName = firstName;
     }
 }

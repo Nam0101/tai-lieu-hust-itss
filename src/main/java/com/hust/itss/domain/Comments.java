@@ -40,21 +40,9 @@ public class Comments implements Serializable {
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
-    public Long getId() {
-        return this.id;
-    }
-
     public Comments id(Long id) {
         this.setId(id);
         return this;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return this.createdAt;
     }
 
     public Comments createdAt(ZonedDateTime createdAt) {
@@ -62,42 +50,14 @@ public class Comments implements Serializable {
         return this;
     }
 
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return this.updatedAt;
-    }
-
     public Comments updatedAt(ZonedDateTime updatedAt) {
         this.setUpdatedAt(updatedAt);
         return this;
     }
 
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public UUID getAnonymousId() {
-        return this.anonymousId;
-    }
-
     public Comments anonymousId(UUID anonymousId) {
         this.setAnonymousId(anonymousId);
         return this;
-    }
-
-    public void setAnonymousId(UUID anonymousId) {
-        this.anonymousId = anonymousId;
-    }
-
-    public Document getDocument() {
-        return this.document;
-    }
-
-    public void setDocument(Document document) {
-        this.document = document;
     }
 
     public Comments document(Document document) {
@@ -133,5 +93,46 @@ public class Comments implements Serializable {
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", anonymousId='" + getAnonymousId() + "'" +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public ZonedDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public UUID getAnonymousId() {
+        return this.anonymousId;
+    }
+
+    public Document getDocument() {
+        return this.document;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(ZonedDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(ZonedDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setAnonymousId(UUID anonymousId) {
+        this.anonymousId = anonymousId;
+    }
+
+    @JsonIgnoreProperties(value = { "urls", "comments", "subject" }, allowSetters = true)
+    public void setDocument(Document document) {
+        this.document = document;
     }
 }

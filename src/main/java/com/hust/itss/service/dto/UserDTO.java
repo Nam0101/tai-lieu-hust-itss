@@ -24,22 +24,6 @@ public class UserDTO implements Serializable {
         this.login = user.getLogin();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     // prettier-ignore
     @Override
     public String toString() {
@@ -47,5 +31,21 @@ public class UserDTO implements Serializable {
             "id='" + id + '\'' +
             ", login='" + login + '\'' +
             "}";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getLogin() {
+        return this.login;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
