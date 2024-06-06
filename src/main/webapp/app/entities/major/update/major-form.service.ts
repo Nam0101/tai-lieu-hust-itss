@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { IMajor, NewMajor } from '../major.model';
 
@@ -14,11 +14,12 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type MajorFormGroupInput = IMajor | PartialWithRequiredKeyOf<NewMajor>;
 
-type MajorFormDefaults = Pick<NewMajor, 'id'>;
+type MajorFormDefaults = Pick<NewMajor, 'id' | 'subjects'>;
 
 type MajorFormGroupContent = {
   id: FormControl<IMajor['id'] | NewMajor['id']>;
   name: FormControl<IMajor['name']>;
+  subjects: FormControl<IMajor['subjects']>;
 };
 
 export type MajorFormGroup = FormGroup<MajorFormGroupContent>;
@@ -39,6 +40,7 @@ export class MajorFormService {
         },
       ),
       name: new FormControl(majorRawValue.name),
+      subjects: new FormControl(majorRawValue.subjects ?? []),
     });
   }
 
@@ -59,6 +61,7 @@ export class MajorFormService {
   private getFormDefaults(): MajorFormDefaults {
     return {
       id: null,
+      subjects: [],
     };
   }
 }

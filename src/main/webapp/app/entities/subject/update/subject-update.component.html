@@ -24,10 +24,17 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="field_major">Major</label>
-          <select class="form-control" id="field_major" data-cy="major" name="major" formControlName="major" [compareWith]="compareMajor">
-            <option [ngValue]="null"></option>
-            @for (majorOption of majorsCollection; track $index) {
+          <label for="field_majors">Majors</label>
+          <select
+            [compareWith]="compareMajor"
+            class="form-control"
+            data-cy="majors"
+            formControlName="majors"
+            id="field_majors"
+            multiple
+            name="majors"
+          >
+            @for (majorOption of majorsSharedCollection; track $index) {
               <option [ngValue]="majorOption">{{ majorOption.id }}</option>
             }
           </select>

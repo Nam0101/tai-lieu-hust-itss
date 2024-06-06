@@ -1,19 +1,19 @@
 import { ISubject, NewSubject } from './subject.model';
 
 export const sampleWithRequiredData: ISubject = {
-  id: 25964,
+  id: 596,
 };
 
 export const sampleWithPartialData: ISubject = {
-  id: 596,
-  name: 'throughout',
-  code: 'that sample towards',
+  id: 3456,
+  name: 'lustrous whoa',
+  code: 'unabashedly roughly',
 };
 
 export const sampleWithFullData: ISubject = {
-  id: 26202,
-  name: 'because hence',
-  code: 'openly',
+  id: 19639,
+  name: 'dop till',
+  code: 'waveform limping beach',
 };
 
 export const sampleWithNewData: NewSubject = {

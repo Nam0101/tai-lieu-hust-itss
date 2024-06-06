@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { sampleWithRequiredData, sampleWithNewData } from '../subject.test-samples';
+import { sampleWithNewData, sampleWithRequiredData } from '../subject.test-samples';
 
 import { SubjectFormService } from './subject-form.service';
 
@@ -22,7 +22,7 @@ describe('Subject Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             code: expect.any(Object),
-            major: expect.any(Object),
+            majors: expect.any(Object),
           }),
         );
       });
@@ -35,7 +35,7 @@ describe('Subject Form Service', () => {
             id: expect.any(Object),
             name: expect.any(Object),
             code: expect.any(Object),
-            major: expect.any(Object),
+            majors: expect.any(Object),
           }),
         );
       });

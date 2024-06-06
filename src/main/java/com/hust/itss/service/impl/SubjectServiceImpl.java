@@ -83,13 +83,6 @@ public class SubjectServiceImpl implements SubjectService {
         subjectRepository.deleteById(id);
     }
 
-    /**
-     * Search for the subject corresponding to the query.
-     *
-     * @param query    the query of the search.
-     * @return the list of entities.
-     */
-
     @Override
     @Transactional(readOnly = true)
     public List<SubjectDTO> search(String query) {

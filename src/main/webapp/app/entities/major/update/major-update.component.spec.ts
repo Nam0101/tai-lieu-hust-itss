@@ -3,8 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { of, Subject, from } from 'rxjs';
+import { from, of, Subject } from 'rxjs';
 
+import { ISubject } from 'app/entities/subject/subject.model';
+import { SubjectService } from 'app/entities/subject/service/subject.service';
 import { MajorService } from '../service/major.service';
 import { IMajor } from '../major.model';
 import { MajorFormService } from './major-form.service';
@@ -17,6 +19,7 @@ describe('Major Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let majorFormService: MajorFormService;
   let majorService: MajorService;
+  let subjectService: SubjectService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -38,17 +41,43 @@ describe('Major Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     majorFormService = TestBed.inject(MajorFormService);
     majorService = TestBed.inject(MajorService);
+    subjectService = TestBed.inject(SubjectService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Subject query and add missing value', () => {
       const major: IMajor = { id: 456 };
+      const subjects: ISubject[] = [{ id: 25964 }];
+      major.subjects = subjects;
+
+      const subjectCollection: ISubject[] = [{ id: 12120 }];
+      jest.spyOn(subjectService, 'query').mockReturnValue(of(new HttpResponse({ body: subjectCollection })));
+      const additionalSubjects = [...subjects];
+      const expectedCollection: ISubject[] = [...additionalSubjects, ...subjectCollection];
+      jest.spyOn(subjectService, 'addSubjectToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ major });
       comp.ngOnInit();
 
+      expect(subjectService.query).toHaveBeenCalled();
+      expect(subjectService.addSubjectToCollectionIfMissing).toHaveBeenCalledWith(
+        subjectCollection,
+        ...additionalSubjects.map(expect.objectContaining),
+      );
+      expect(comp.subjectsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const major: IMajor = { id: 456 };
+      const subjects: ISubject = { id: 3790 };
+      major.subjects = [subjects];
+
+      activatedRoute.data = of({ major });
+      comp.ngOnInit();
+
+      expect(comp.subjectsSharedCollection).toContain(subjects);
       expect(comp.major).toEqual(major);
     });
   });
@@ -118,6 +147,18 @@ describe('Major Management Update Component', () => {
       expect(majorService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareSubject', () => {
+      it('Should forward to subjectService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(subjectService, 'compareSubject');
+        comp.compareSubject(entity, entity2);
+        expect(subjectService.compareSubject).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

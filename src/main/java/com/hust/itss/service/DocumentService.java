@@ -1,7 +1,9 @@
 package com.hust.itss.service;
 
 import com.hust.itss.service.dto.DocumentDTO;
+import java.util.List;
 import java.util.Optional;
+import javax.print.Doc;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -55,4 +57,7 @@ public interface DocumentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<DocumentDTO> getDocumentByMajorId(Long majorId);
+    List<DocumentDTO> getDocumentBySearchTerm(String searchTerm);
 }

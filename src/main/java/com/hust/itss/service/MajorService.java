@@ -1,7 +1,6 @@
 package com.hust.itss.service;
 
 import com.hust.itss.service.dto.MajorDTO;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,11 +42,12 @@ public interface MajorService {
     Page<MajorDTO> findAll(Pageable pageable);
 
     /**
-     * Get all the MajorDTO where Subject is {@code null}.
+     * Get all the majors with eager load of many-to-many relationships.
      *
-     * @return the {@link List} of entities.
+     * @param pageable the pagination information.
+     * @return the list of entities.
      */
-    List<MajorDTO> findAllWhereSubjectIsNull();
+    Page<MajorDTO> findAllWithEagerRelationships(Pageable pageable);
 
     /**
      * Get the "id" major.

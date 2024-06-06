@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * A DTO for the {@link com.hust.itss.domain.Comments} entity.
@@ -66,11 +68,10 @@ public class CommentsDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CommentsDTO)) {
+        if (!(o instanceof CommentsDTO commentsDTO)) {
             return false;
         }
 
-        CommentsDTO commentsDTO = (CommentsDTO) o;
         if (this.id == null) {
             return false;
         }

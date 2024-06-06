@@ -1,11 +1,13 @@
 package com.hust.itss.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * A DTO for the {@link com.hust.itss.domain.Major} entity.
- */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class MajorDTO implements Serializable {
 
@@ -28,6 +30,17 @@ public class MajorDTO implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<SubjectDTO> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<SubjectDTO> subjects) {
+        this.subjects = subjects;
+    }
+
+    @JsonIgnore
+    private Set<SubjectDTO> subjects = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
@@ -56,6 +69,7 @@ public class MajorDTO implements Serializable {
         return "MajorDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", subjects=" + getSubjects() +
             "}";
     }
 }

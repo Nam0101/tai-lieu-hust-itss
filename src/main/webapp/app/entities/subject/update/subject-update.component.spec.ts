@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { of, Subject, from } from 'rxjs';
+import { from, of, Subject } from 'rxjs';
 
 import { IMajor } from 'app/entities/major/major.model';
 import { MajorService } from 'app/entities/major/service/major.service';
@@ -47,33 +47,37 @@ describe('Subject Management Update Component', () => {
   });
 
   describe('ngOnInit', () => {
-    it('Should call major query and add missing value', () => {
+    it('Should call Major query and add missing value', () => {
       const subject: ISubject = { id: 456 };
-      const major: IMajor = { id: 19675 };
-      subject.major = major;
+      const majors: IMajor[] = [{ id: 19675 }];
+      subject.majors = majors;
 
       const majorCollection: IMajor[] = [{ id: 3541 }];
       jest.spyOn(majorService, 'query').mockReturnValue(of(new HttpResponse({ body: majorCollection })));
-      const expectedCollection: IMajor[] = [major, ...majorCollection];
+      const additionalMajors = [...majors];
+      const expectedCollection: IMajor[] = [...additionalMajors, ...majorCollection];
       jest.spyOn(majorService, 'addMajorToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ subject });
       comp.ngOnInit();
 
       expect(majorService.query).toHaveBeenCalled();
-      expect(majorService.addMajorToCollectionIfMissing).toHaveBeenCalledWith(majorCollection, major);
-      expect(comp.majorsCollection).toEqual(expectedCollection);
+      expect(majorService.addMajorToCollectionIfMissing).toHaveBeenCalledWith(
+        majorCollection,
+        ...additionalMajors.map(expect.objectContaining),
+      );
+      expect(comp.majorsSharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {
       const subject: ISubject = { id: 456 };
-      const major: IMajor = { id: 12909 };
-      subject.major = major;
+      const majors: IMajor = { id: 12909 };
+      subject.majors = [majors];
 
       activatedRoute.data = of({ subject });
       comp.ngOnInit();
 
-      expect(comp.majorsCollection).toContain(major);
+      expect(comp.majorsSharedCollection).toContain(majors);
       expect(comp.subject).toEqual(subject);
     });
   });

@@ -1,5 +1,6 @@
 package com.hust.itss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -28,6 +29,9 @@ public class Document implements Serializable {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "image_url")
+    private String imgUrl;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "document")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
@@ -38,8 +42,9 @@ public class Document implements Serializable {
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
     private Set<Comments> comments = new HashSet<>();
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = { "major", "documents" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "documents", "majors" }, allowSetters = true)
     private Subject subject;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -89,16 +94,14 @@ public class Document implements Serializable {
         return this;
     }
 
-    public Document addUrls(Url url) {
+    public void addUrls(Url url) {
         this.urls.add(url);
         url.setDocument(this);
-        return this;
     }
 
-    public Document removeUrls(Url url) {
+    public void removeUrls(Url url) {
         this.urls.remove(url);
         url.setDocument(null);
-        return this;
     }
 
     public Set<Comments> getComments() {
@@ -120,16 +123,14 @@ public class Document implements Serializable {
         return this;
     }
 
-    public Document addComments(Comments comments) {
+    public void addComments(Comments comments) {
         this.comments.add(comments);
         comments.setDocument(this);
-        return this;
     }
 
-    public Document removeComments(Comments comments) {
+    public void removeComments(Comments comments) {
         this.comments.remove(comments);
         comments.setDocument(null);
-        return this;
     }
 
     public Subject getSubject() {

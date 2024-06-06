@@ -5,6 +5,7 @@ import com.hust.itss.repository.DocumentRepository;
 import com.hust.itss.service.DocumentService;
 import com.hust.itss.service.dto.DocumentDTO;
 import com.hust.itss.service.mapper.DocumentMapper;
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +81,19 @@ public class DocumentServiceImpl implements DocumentService {
     public void delete(Long id) {
         log.debug("Request to delete Document : {}", id);
         documentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<DocumentDTO> getDocumentByMajorId(Long majorId) {
+        log.debug("Request to get Document by major id : {}", majorId);
+        List<Document> documents = documentRepository.findByMajorId(majorId);
+        return documentMapper.toDto(documents);
+    }
+
+    @Override
+    public List<DocumentDTO> getDocumentBySearchTerm(String query) {
+        log.debug("Request to get Document by query : {}", query);
+        List<Document> documents = documentRepository.findBySearchTerm(query);
+        return documentMapper.toDto(documents);
     }
 }

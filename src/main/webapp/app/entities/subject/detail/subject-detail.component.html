@@ -23,12 +23,13 @@
           <dd>
             <span>{{ subject()!.code }}</span>
           </dd>
-          <dt><span>Major</span></dt>
+          <dt><span>Majors</span></dt>
           <dd>
-            @if (subject()!.major) {
-              <div>
-                <a [routerLink]="['/major', subject()!.major?.id, 'view']">{{ subject()!.major?.id }}</a>
-              </div>
+            @for (majors of subject()!.majors; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/major', majors.id, 'view']">{{ majors?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
             }
           </dd>
         </dl>

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -138,20 +137,21 @@ public class MajorResource {
      * {@code GET  /majors} : get all the majors.
      *
      * @param pageable the pagination information.
-     * @param filter the filter of the request.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of majors in body.
      */
     @GetMapping("")
     public ResponseEntity<List<MajorDTO>> getAllMajors(
         @org.springdoc.core.annotations.ParameterObject Pageable pageable,
-        @RequestParam(name = "filter", required = false) String filter
+        @RequestParam(name = "eagerload", required = false, defaultValue = "true") boolean eagerload
     ) {
-        if ("subject-is-null".equals(filter)) {
-            log.debug("REST request to get all Majors where subject is null");
-            return new ResponseEntity<>(majorService.findAllWhereSubjectIsNull(), HttpStatus.OK);
-        }
         log.debug("REST request to get a page of Majors");
-        Page<MajorDTO> page = majorService.findAll(pageable);
+        Page<MajorDTO> page;
+        if (eagerload) {
+            page = majorService.findAllWithEagerRelationships(pageable);
+        } else {
+            page = majorService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

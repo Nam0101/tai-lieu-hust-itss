@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { sampleWithRequiredData, sampleWithNewData } from '../major.test-samples';
+import { sampleWithNewData, sampleWithRequiredData } from '../major.test-samples';
 
 import { MajorFormService } from './major-form.service';
 
@@ -21,6 +21,7 @@ describe('Major Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
+            subjects: expect.any(Object),
           }),
         );
       });
@@ -32,6 +33,7 @@ describe('Major Form Service', () => {
           expect.objectContaining({
             id: expect.any(Object),
             name: expect.any(Object),
+            subjects: expect.any(Object),
           }),
         );
       });

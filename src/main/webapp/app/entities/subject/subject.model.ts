@@ -4,7 +4,7 @@ export interface ISubject {
   id: number;
   name?: string | null;
   code?: string | null;
-  major?: Pick<IMajor, 'id'> | null;
+  majors?: Pick<IMajor, 'id'>[] | null;
 }
 
 export type NewSubject = Omit<ISubject, 'id'> & { id: null };

@@ -5,11 +5,7 @@ import com.hust.itss.repository.MajorRepository;
 import com.hust.itss.service.MajorService;
 import com.hust.itss.service.dto.MajorDTO;
 import com.hust.itss.service.mapper.MajorMapper;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -73,24 +69,15 @@ public class MajorServiceImpl implements MajorService {
         return majorRepository.findAll(pageable).map(majorMapper::toDto);
     }
 
-    /**
-     *  Get all the majors where Subject is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<MajorDTO> findAllWhereSubjectIsNull() {
-        log.debug("Request to get all majors where Subject is null");
-        return StreamSupport.stream(majorRepository.findAll().spliterator(), false)
-            .filter(major -> major.getSubject() == null)
-            .map(majorMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+    public Page<MajorDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return majorRepository.findAllWithEagerRelationships(pageable).map(majorMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<MajorDTO> findOne(Long id) {
         log.debug("Request to get Major : {}", id);
-        return majorRepository.findById(id).map(majorMapper::toDto);
+        return majorRepository.findOneWithEagerRelationships(id).map(majorMapper::toDto);
     }
 
     @Override

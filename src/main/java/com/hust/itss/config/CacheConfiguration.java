@@ -1,7 +1,9 @@
 package com.hust.itss.config;
 
 import java.time.Duration;
-import org.ehcache.config.builders.*;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.jsr107.Eh107Configuration;
 import org.hibernate.cache.jcache.ConfigSettings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,8 @@ import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.config.cache.PrefixedKeyGenerator;
 
@@ -51,8 +54,10 @@ public class CacheConfiguration {
             createCache(cm, com.hust.itss.domain.Authority.class.getName());
             createCache(cm, com.hust.itss.domain.User.class.getName() + ".authorities");
             createCache(cm, com.hust.itss.domain.Major.class.getName());
+            createCache(cm, com.hust.itss.domain.Major.class.getName() + ".subjects");
             createCache(cm, com.hust.itss.domain.Subject.class.getName());
             createCache(cm, com.hust.itss.domain.Subject.class.getName() + ".documents");
+            createCache(cm, com.hust.itss.domain.Subject.class.getName() + ".majors");
             createCache(cm, com.hust.itss.domain.Document.class.getName());
             createCache(cm, com.hust.itss.domain.Document.class.getName() + ".urls");
             createCache(cm, com.hust.itss.domain.Document.class.getName() + ".comments");

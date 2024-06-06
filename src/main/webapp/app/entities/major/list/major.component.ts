@@ -1,17 +1,17 @@
-import { Component, NgZone, inject, OnInit } from '@angular/core';
+import { Component, inject, NgZone, OnInit } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Data, ParamMap, Router, RouterModule } from '@angular/router';
 import { combineLatest, filter, Observable, Subscription, tap } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import SharedModule from 'app/shared/shared.module';
-import { sortStateSignal, SortDirective, SortByDirective, type SortState, SortService } from 'app/shared/sort';
-import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
+import { SortByDirective, SortDirective, SortService, type SortState, sortStateSignal } from 'app/shared/sort';
+import { DurationPipe, FormatMediumDatePipe, FormatMediumDatetimePipe } from 'app/shared/date';
 import { ItemCountComponent } from 'app/shared/pagination';
 import { FormsModule } from '@angular/forms';
 
 import { ITEMS_PER_PAGE, PAGE_HEADER, TOTAL_COUNT_RESPONSE_HEADER } from 'app/config/pagination.constants';
-import { SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/config/navigation.constants';
+import { DEFAULT_SORT_DATA, ITEM_DELETED_EVENT, SORT } from 'app/config/navigation.constants';
 import { IMajor } from '../major.model';
 import { EntityArrayResponseType, MajorService } from '../service/major.service';
 import { MajorDeleteDialogComponent } from '../delete/major-delete-dialog.component';
@@ -117,6 +117,7 @@ export class MajorComponent implements OnInit {
     const queryObject: any = {
       page: pageToLoad - 1,
       size: this.itemsPerPage,
+      eagerload: true,
       sort: this.sortService.buildSortParam(this.sortState()),
     };
     return this.majorService.query(queryObject).pipe(tap(() => (this.isLoading = false)));

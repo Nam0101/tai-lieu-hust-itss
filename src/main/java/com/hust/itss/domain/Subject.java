@@ -1,5 +1,6 @@
 package com.hust.itss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -31,15 +32,16 @@ public class Subject implements Serializable {
     @Column(name = "code")
     private String code;
 
-    @JsonIgnoreProperties(value = { "subject" }, allowSetters = true)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(unique = true)
-    private Major major;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "urls", "comments", "subject" }, allowSetters = true)
     private Set<Document> documents = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "subjects")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "subjects" }, allowSetters = true)
+    private Set<Major> majors = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -82,19 +84,6 @@ public class Subject implements Serializable {
         this.code = code;
     }
 
-    public Major getMajor() {
-        return this.major;
-    }
-
-    public void setMajor(Major major) {
-        this.major = major;
-    }
-
-    public Subject major(Major major) {
-        this.setMajor(major);
-        return this;
-    }
-
     public Set<Document> getDocuments() {
         return this.documents;
     }
@@ -123,6 +112,37 @@ public class Subject implements Serializable {
     public Subject removeDocuments(Document document) {
         this.documents.remove(document);
         document.setSubject(null);
+        return this;
+    }
+
+    public Set<Major> getMajors() {
+        return this.majors;
+    }
+
+    public void setMajors(Set<Major> majors) {
+        if (this.majors != null) {
+            this.majors.forEach(i -> i.removeSubjects(this));
+        }
+        if (majors != null) {
+            majors.forEach(i -> i.addSubjects(this));
+        }
+        this.majors = majors;
+    }
+
+    public Subject majors(Set<Major> majors) {
+        this.setMajors(majors);
+        return this;
+    }
+
+    public Subject addMajors(Major major) {
+        this.majors.add(major);
+        major.getSubjects().add(this);
+        return this;
+    }
+
+    public Subject removeMajors(Major major) {
+        this.majors.remove(major);
+        major.getSubjects().remove(this);
         return this;
     }
 

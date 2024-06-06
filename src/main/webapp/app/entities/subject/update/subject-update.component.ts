@@ -11,7 +11,7 @@ import { IMajor } from 'app/entities/major/major.model';
 import { MajorService } from 'app/entities/major/service/major.service';
 import { ISubject } from '../subject.model';
 import { SubjectService } from '../service/subject.service';
-import { SubjectFormService, SubjectFormGroup } from './subject-form.service';
+import { SubjectFormGroup, SubjectFormService } from './subject-form.service';
 
 @Component({
   standalone: true,
@@ -23,7 +23,7 @@ export class SubjectUpdateComponent implements OnInit {
   isSaving = false;
   subject: ISubject | null = null;
 
-  majorsCollection: IMajor[] = [];
+  majorsSharedCollection: IMajor[] = [];
 
   protected subjectService = inject(SubjectService);
   protected subjectFormService = inject(SubjectFormService);
@@ -83,14 +83,17 @@ export class SubjectUpdateComponent implements OnInit {
     this.subject = subject;
     this.subjectFormService.resetForm(this.editForm, subject);
 
-    this.majorsCollection = this.majorService.addMajorToCollectionIfMissing<IMajor>(this.majorsCollection, subject.major);
+    this.majorsSharedCollection = this.majorService.addMajorToCollectionIfMissing<IMajor>(
+      this.majorsSharedCollection,
+      ...(subject.majors ?? []),
+    );
   }
 
   protected loadRelationshipsOptions(): void {
     this.majorService
-      .query({ filter: 'subject-is-null' })
+      .query()
       .pipe(map((res: HttpResponse<IMajor[]>) => res.body ?? []))
-      .pipe(map((majors: IMajor[]) => this.majorService.addMajorToCollectionIfMissing<IMajor>(majors, this.subject?.major)))
-      .subscribe((majors: IMajor[]) => (this.majorsCollection = majors));
+      .pipe(map((majors: IMajor[]) => this.majorService.addMajorToCollectionIfMissing<IMajor>(majors, ...(this.subject?.majors ?? []))))
+      .subscribe((majors: IMajor[]) => (this.majorsSharedCollection = majors));
   }
 }

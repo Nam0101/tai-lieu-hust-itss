@@ -1,11 +1,11 @@
 package com.hust.itss.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Objects;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * A DTO for the {@link com.hust.itss.domain.Document} entity.
- */
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class DocumentDTO implements Serializable {
 
@@ -13,7 +13,10 @@ public class DocumentDTO implements Serializable {
 
     private String title;
 
+    @JsonIgnore
     private SubjectDTO subject;
+
+    private String imgUrl;
 
     public Long getId() {
         return id;
@@ -44,11 +47,10 @@ public class DocumentDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DocumentDTO)) {
+        if (!(o instanceof DocumentDTO documentDTO)) {
             return false;
         }
 
-        DocumentDTO documentDTO = (DocumentDTO) o;
         if (this.id == null) {
             return false;
         }
@@ -68,5 +70,13 @@ public class DocumentDTO implements Serializable {
             ", title='" + getTitle() + "'" +
             ", subject=" + getSubject() +
             "}";
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

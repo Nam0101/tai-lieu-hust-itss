@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ISubject, NewSubject } from '../subject.model';
 
@@ -14,13 +14,13 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type SubjectFormGroupInput = ISubject | PartialWithRequiredKeyOf<NewSubject>;
 
-type SubjectFormDefaults = Pick<NewSubject, 'id'>;
+type SubjectFormDefaults = Pick<NewSubject, 'id' | 'majors'>;
 
 type SubjectFormGroupContent = {
   id: FormControl<ISubject['id'] | NewSubject['id']>;
   name: FormControl<ISubject['name']>;
   code: FormControl<ISubject['code']>;
-  major: FormControl<ISubject['major']>;
+  majors: FormControl<ISubject['majors']>;
 };
 
 export type SubjectFormGroup = FormGroup<SubjectFormGroupContent>;
@@ -42,7 +42,7 @@ export class SubjectFormService {
       ),
       name: new FormControl(subjectRawValue.name),
       code: new FormControl(subjectRawValue.code),
-      major: new FormControl(subjectRawValue.major),
+      majors: new FormControl(subjectRawValue.majors ?? []),
     });
   }
 
@@ -63,6 +63,7 @@ export class SubjectFormService {
   private getFormDefaults(): SubjectFormDefaults {
     return {
       id: null,
+      majors: [],
     };
   }
 }

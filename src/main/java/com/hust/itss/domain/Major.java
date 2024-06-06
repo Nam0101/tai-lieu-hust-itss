@@ -1,8 +1,11 @@
 package com.hust.itss.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -26,9 +29,16 @@ public class Major implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @JsonIgnoreProperties(value = { "major", "documents" }, allowSetters = true)
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "major")
-    private Subject subject;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "rel_major__subjects",
+        joinColumns = @JoinColumn(name = "major_id"),
+        inverseJoinColumns = @JoinColumn(name = "subjects_id")
+    )
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "documents", "majors" }, allowSetters = true)
+    private Set<Subject> subjects = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -58,23 +68,25 @@ public class Major implements Serializable {
         this.name = name;
     }
 
-    public Subject getSubject() {
-        return this.subject;
+    public Set<Subject> getSubjects() {
+        return this.subjects;
     }
 
-    public void setSubject(Subject subject) {
-        if (this.subject != null) {
-            this.subject.setMajor(null);
-        }
-        if (subject != null) {
-            subject.setMajor(this);
-        }
-        this.subject = subject;
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 
-    public Major subject(Subject subject) {
-        this.setSubject(subject);
+    public Major subjects(Set<Subject> subjects) {
+        this.setSubjects(subjects);
         return this;
+    }
+
+    public void addSubjects(Subject subject) {
+        this.subjects.add(subject);
+    }
+
+    public void removeSubjects(Subject subject) {
+        this.subjects.remove(subject);
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

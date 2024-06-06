@@ -1,7 +1,10 @@
 package com.hust.itss.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DTO for the {@link com.hust.itss.domain.Subject} entity.
@@ -15,7 +18,8 @@ public class SubjectDTO implements Serializable {
 
     private String code;
 
-    private MajorDTO major;
+    @JsonIgnore
+    private Set<MajorDTO> majors = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -41,12 +45,12 @@ public class SubjectDTO implements Serializable {
         this.code = code;
     }
 
-    public MajorDTO getMajor() {
-        return major;
+    public Set<MajorDTO> getMajors() {
+        return majors;
     }
 
-    public void setMajor(MajorDTO major) {
-        this.major = major;
+    public void setMajors(Set<MajorDTO> majors) {
+        this.majors = majors;
     }
 
     @Override
@@ -77,7 +81,7 @@ public class SubjectDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", code='" + getCode() + "'" +
-            ", major=" + getMajor() +
+            ", majors=" + getMajors() +
             "}";
     }
 }

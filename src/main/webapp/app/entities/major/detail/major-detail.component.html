@@ -19,6 +19,15 @@
           <dd>
             <span>{{ major()!.name }}</span>
           </dd>
+          <dt><span>Subjects</span></dt>
+          <dd>
+            @for (subjects of major()!.subjects; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/subject', subjects.id, 'view']">{{ subjects?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
         </dl>
 
         <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

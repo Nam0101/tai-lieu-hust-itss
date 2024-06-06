@@ -22,16 +22,17 @@
   "pagination": "pagination",
   "relationships": [
     {
-      "otherEntityName": "major",
-      "relationshipName": "major",
-      "relationshipSide": "left",
-      "relationshipType": "one-to-one"
-    },
-    {
       "otherEntityName": "document",
       "relationshipName": "documents",
       "relationshipSide": "left",
       "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "major",
+      "otherEntityRelationshipName": "subjects",
+      "relationshipName": "majors",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
     }
   ],
   "searchEngine": "no",

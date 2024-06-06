@@ -16,7 +16,15 @@
   ],
   "name": "Major",
   "pagination": "pagination",
-  "relationships": [],
+  "relationships": [
+    {
+      "otherEntityName": "subject",
+      "otherEntityRelationshipName": "majors",
+      "relationshipName": "subjects",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
   "searchEngine": "no",
   "service": "serviceImpl"
 }

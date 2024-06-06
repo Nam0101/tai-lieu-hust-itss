@@ -3,7 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { of, Subject, from } from 'rxjs';
+import { from, of, Subject } from 'rxjs';
 
 import { ISubject } from 'app/entities/subject/subject.model';
 import { SubjectService } from 'app/entities/subject/service/subject.service';
@@ -49,10 +49,10 @@ describe('Document Management Update Component', () => {
   describe('ngOnInit', () => {
     it('Should call Subject query and add missing value', () => {
       const document: IDocument = { id: 456 };
-      const subject: ISubject = { id: 29416 };
+      const subject: ISubject = { id: 31092 };
       document.subject = subject;
 
-      const subjectCollection: ISubject[] = [{ id: 15335 }];
+      const subjectCollection: ISubject[] = [{ id: 17419 }];
       jest.spyOn(subjectService, 'query').mockReturnValue(of(new HttpResponse({ body: subjectCollection })));
       const additionalSubjects = [subject];
       const expectedCollection: ISubject[] = [...additionalSubjects, ...subjectCollection];
@@ -71,7 +71,7 @@ describe('Document Management Update Component', () => {
 
     it('Should update editForm', () => {
       const document: IDocument = { id: 456 };
-      const subject: ISubject = { id: 31901 };
+      const subject: ISubject = { id: 6762 };
       document.subject = subject;
 
       activatedRoute.data = of({ document });
