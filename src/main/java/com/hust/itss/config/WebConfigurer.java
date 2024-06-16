@@ -87,16 +87,13 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         CorsConfiguration config = jHipsterProperties.getCors();
 
         // Allow all origins (BE CAREFUL: this is very insecure)
-        config.addAllowedOrigin("*");
-
+        config.addAllowedOrigin("https://xecauyenthanh.online");
+        config.addAllowedOrigin("http://localhost:3000");
         // Allow all headers
-        config.addAllowedHeader("*");
 
         // Allow all methods
-        config.addAllowedMethod("*");
 
         // Expose headers for frontend access (optional)
-        config.setExposedHeaders(Arrays.asList("Authorization", "Link", "X-Total-Count"));
 
         // Set the max age for the preflight response (optional)
         config.setMaxAge(3600L);
