@@ -87,6 +87,8 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
         // add local host 3000
         config.addAllowedOrigin("http://localhost:3000");
+        // allow all origin
+        config.addAllowedOrigin("*");
 
         if (!CollectionUtils.isEmpty(config.getAllowedOrigins()) || !CollectionUtils.isEmpty(config.getAllowedOriginPatterns())) {
             log.debug("Registering CORS filter");
