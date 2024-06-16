@@ -6,6 +6,7 @@ import jakarta.servlet.*;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.server.*;
@@ -85,18 +86,27 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = jHipsterProperties.getCors();
 
-        // add local host 3000
-        config.addAllowedOrigin("http://localhost:3000");
-        // allow all origin
+        // Allow all origins (BE CAREFUL: this is very insecure)
         config.addAllowedOrigin("*");
 
-        if (!CollectionUtils.isEmpty(config.getAllowedOrigins()) || !CollectionUtils.isEmpty(config.getAllowedOriginPatterns())) {
-            log.debug("Registering CORS filter");
-            source.registerCorsConfiguration("/api/**", config);
-            source.registerCorsConfiguration("/management/**", config);
-            source.registerCorsConfiguration("/v3/api-docs", config);
-            source.registerCorsConfiguration("/swagger-ui/**", config);
-        }
+        // Allow all headers
+        config.addAllowedHeader("*");
+
+        // Allow all methods
+        config.addAllowedMethod("*");
+
+        // Expose headers for frontend access (optional)
+        config.setExposedHeaders(Arrays.asList("Authorization", "Link", "X-Total-Count"));
+
+        // Set the max age for the preflight response (optional)
+        config.setMaxAge(3600L);
+
+        // Register the configuration for the specified paths
+        source.registerCorsConfiguration("/api/**", config);
+        source.registerCorsConfiguration("/management/**", config);
+        source.registerCorsConfiguration("/v3/api-docs", config);
+        source.registerCorsConfiguration("/swagger-ui/**", config);
+
         return new CorsFilter(source);
     }
 }
